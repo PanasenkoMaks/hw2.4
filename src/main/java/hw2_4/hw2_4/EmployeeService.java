@@ -1,14 +1,17 @@
 package hw2_4.hw2_4;
 
 import hw2_4.hw2_4.exceptions.EmployeeException;
+import hw2_4.hw2_4.exceptions.EmployeeIndexOutOfBoundsException;
+import hw2_4.hw2_4.exceptions.EmployeeNotFoundException;
+import hw2_4.hw2_4.exceptions.TheEmployeeAlreadyExistsException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 @Service
-public class EmployeeService implements EmployeeService1 {
+public class EmployeeService {
     private static final Employee[] storage = new Employee[2];
 
-    @Override
+
     public String addEmployee(String firstName, String lastName) {
         for (int i = 0; i < storage.length; i++) {
             if (storage[i] == null) {
@@ -16,10 +19,10 @@ public class EmployeeService implements EmployeeService1 {
                 break;
             }
             if (storage[i].equals(storage)){
-                throw new EmployeeException();
+                throw new TheEmployeeAlreadyExistsException();
             }
             if (storage[i] != null)
-                throw new EmployeeException();
+                throw new EmployeeIndexOutOfBoundsException();
         }
         return firstName + " " + lastName;
     }
@@ -41,7 +44,7 @@ public class EmployeeService implements EmployeeService1 {
                 return storage[i].getFirstName() + " " + storage[i].getLastName();
             }
             if (storage[i] != null & storage[i] != new Employee(firstName, lastName)) {
-               throw new EmployeeException();
+               throw new EmployeeNotFoundException();
             }
         }return "404 Not Found ";
     }
