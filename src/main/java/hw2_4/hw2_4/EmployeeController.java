@@ -1,6 +1,7 @@
 package hw2_4.hw2_4;
 
 import hw2_4.hw2_4.exceptions.EmployeeException;
+import hw2_4.hw2_4.exceptions.EmployeeNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class EmployeeController {
                                   @RequestParam("lastName") String lastName) {
         try {
             return employeeService.searchEmployee(firstName, lastName);
-        } catch (ArrayIndexOutOfBoundsException | EmployeeException e) {
+        } catch (ArrayIndexOutOfBoundsException | EmployeeNotFoundException e) {
             return "404 Not Found";
         }
     }
